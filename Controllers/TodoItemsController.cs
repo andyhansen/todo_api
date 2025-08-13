@@ -49,14 +49,8 @@ namespace TodoApi.Controllers
 
       todoItemDTO.MapTo(todoItem);
 
-      try
-      {
-        await _context.SaveChangesAsync();
-      }
-      catch (DbUpdateConcurrencyException)
-      {
-        throw;
-      }
+      try { await _context.SaveChangesAsync(); }
+      catch (DbUpdateConcurrencyException) { throw; }
 
       return NoContent();
     }
@@ -67,6 +61,7 @@ namespace TodoApi.Controllers
     public async Task<ActionResult<TodoItemDTO>> PostTodoItem(TodoItemDTO todoItemDTO)
     {
       var todoItem = todoItemDTO.Create();
+
       _context.TodoItems.Add(todoItem);
       await _context.SaveChangesAsync();
 
@@ -78,10 +73,7 @@ namespace TodoApi.Controllers
     public async Task<IActionResult> DeleteTodoItem(long id)
     {
       var todoItem = await _context.TodoItems.FindAsync(id);
-      if (todoItem == null)
-      {
-        return NotFound();
-      }
+      if (todoItem == null) return NotFound();
 
       _context.TodoItems.Remove(todoItem);
       await _context.SaveChangesAsync();
