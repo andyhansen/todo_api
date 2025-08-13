@@ -10,7 +10,7 @@ public class TodoItemDTO
   public bool IsComplete { get; set; }
   public int Order { get; set; } = 1;
 
-  public bool Update(TodoItem todoItem)
+  public bool MapTo(TodoItem todoItem)
   {
     if (todoItem == null) return false;
 
@@ -31,7 +31,7 @@ public class TodoItemDTO
     };
   }
 
-  public static TodoItemDTO Build(TodoItem todoItem)
+  public static TodoItemDTO MapFrom(TodoItem todoItem)
   {
     return new TodoItemDTO
     {

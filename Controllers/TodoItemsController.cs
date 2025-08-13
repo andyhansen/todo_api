@@ -22,7 +22,7 @@ namespace TodoApi.Controllers
     {
       return await _context
       .TodoItems
-      .Select(item => TodoItemDTO.Build(item))
+      .Select(item => TodoItemDTO.MapFrom(item))
       .ToListAsync();
     }
 
@@ -34,7 +34,7 @@ namespace TodoApi.Controllers
 
       if (todoItem == null) return NotFound();
 
-      return TodoItemDTO.Build(todoItem);
+      return TodoItemDTO.MapFrom(todoItem);
     }
 
     // PUT: api/TodoItems/5
@@ -47,7 +47,7 @@ namespace TodoApi.Controllers
       var todoItem = await _context.TodoItems.FindAsync(id);
       if (todoItem == null) return NotFound();
 
-      todoItemDTO.Update(todoItem);
+      todoItemDTO.MapTo(todoItem);
 
       try
       {
